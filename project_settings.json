@@ -1,5 +1,5 @@
 {
-    "dataset_url": "https://www.dreamstime.com/photos-images/kitties-kitten.html",
+    "dataset_url": "https://www.",
     "version": 1,
     "output_file_template": [
         "histogram czestosci wystapienia stanow",
