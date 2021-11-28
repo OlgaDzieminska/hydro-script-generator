@@ -25,9 +25,9 @@ def loadSettingsFromFile():
     return data
 
 
-def print_greetings(_author_name, _version):
-    print('Generator operatów, wersja:', _version)
-    print('Autor', _author_name)
+def print_greetings():
+    print('Generator operatów')
+    print('Autor: Olga Dziemińska')
 
 
 def fetch_request_data_from_UI():
@@ -36,9 +36,13 @@ def fetch_request_data_from_UI():
     year_from_from_UI = input('Podaj rok, od którego operat ma być generowany')
     year_to_from_UI = input('Podaj rok, do którego operat ma być generowany')
     year_of_chart_from_UI = input('Podaj rok, dla którego ma być wygenerowana krzywa wahań stanów i przepływów codziennych')
-    return {'Nazwa rzeki': river_name_from_UI, 'Nazwa przekroju': section_name_from_UI, 'Rok rozpoczęcia operatu': year_from_from_UI,
-            'Rok zakończenia operatu': year_to_from_UI,
-            'Rok dla którego ma być wygenerowana krzywa wahań stanów i przepływów codziennych': year_of_chart_from_UI}
+    four_years = input('Podaj początkowy rok czterolecia, dla którego mają byś wykonane histogramy częstości wystąpienia stanów/przepływów i krzywe sum czasów '
+                       'trwania stanów/przepływów wraz z wyższymi')
+    return {'river_name': river_name_from_UI, 'city_name': section_name_from_UI, 'from_year': year_from_from_UI,
+            'to_year': year_to_from_UI,
+            'rok krzywa wahań stanów i przepływów codziennych': year_of_chart_from_UI,
+            'rok histogramy i krzywe sum wraz z wyższymi':
+                four_years}
 
 
 def printDailyFlowsAndStatesFluctuationCurveChart(przeplyw, stanWody, river_name, section_name,

@@ -1,11 +1,7 @@
 {
-    "dataset_url": "https://www.dreamstime.com/photos-images/kitties-kitten.html",
-    "version": 1,
-    "output_file_template": [
-        "histogram czestosci wystapienia stanow",
-        "krzywe sum czasow trwania stanow",
-        "krzywa sumowa 10 lat",
-        "krzywa konsumpcyjna"
-    ],
-    "author": "Olga Dziemińska"
-}
+  "output_file_template": [
+    "histogram czestosci wystapienia stanow",
+    "krzywe sum czasow trwania stanow",
+    "krzywa sumowa 10 lat",
+    "krzywa konsumpcyjna"
+    }
