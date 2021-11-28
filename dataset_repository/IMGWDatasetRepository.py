@@ -13,9 +13,9 @@ HALF_YEARLY_DATASET_ENDPOINT = "/polroczne_i_roczne/%d/"
 DAILY_DATA_ZIP_FILE_NAME_TEMPLATE = "codz_%d_%02d.zip"
 DAILY_DATA_CSV_FILE_NAME_TEMPLATE = "codz_%d_%02d.csv"
 YEARLY_DATA_ZIP_FILE_NAME_TEMPLATE_Q = "polr_Q_%d.zip"
-DAILY_DATA_ZIP_FILE_NAME_TEMPLATE_Q = "polr_Q_%d.csv"
+YEARLY_DATA_CSV_FILE_NAME_TEMPLATE_Q = "polr_Q_%d.csv"
 YEARLY_DATA_ZIP_FILE_NAME_TEMPLATE_H_WATER = "polr_H_%d.zip"
-DAILY_DATA_ZIP_FILE_NAME_TEMPLATE_H_WATER = "polr_H_%d.csv"
+YEARLY_DATA_CSV_FILE_NAME_TEMPLATE_H_WATER = "polr_H_%d.csv"
 
 
 def __download_file(url: str, destination_directory: str):
