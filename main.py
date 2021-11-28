@@ -7,8 +7,15 @@ import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
 
+PROGRAM_ROOT_PATH = os.getcwd()
 TEMP_FOLDER_DIRECTORY = "temp"
+CHART_IMAGES_DIRECTORY = "chart_images"
+DAILY_VALUES_INPUT_FILES_DIRECTORY = "daily_values"
+YEARLY_VALUES_INPUT_FILES_DIRECTORY = "yearly_values"
+
 chartsFontSize = 14
+PROVIDED_INVALID_WATER_PARAMETER_NAME_ERROR_MESSAGE = 'Podano nieprawidłową nazwę parametru wody. Dozwolone wartości:`h_water` i `Q`'
+COULD_NOT_FIND_DATASET_FOR_REQUESTED_YEAR = 'Nie można znaleźć danych dla podanego roku.'
 
 
 def loadSettingsFromFile():
