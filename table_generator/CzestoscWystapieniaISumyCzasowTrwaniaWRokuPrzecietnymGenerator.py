@@ -2,18 +2,21 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.shared import Pt
 
 from main import PROVIDED_INVALID_WATER_PARAMETER_NAME_ERROR_MESSAGE
-from table_generator.TableGenerator import addHeadersToTable, SIGMA_SIGN
+from table_generator.TableGenerator import addHeadersToTable, SIGMA_SIGN, addStyledContentToCellAndMerge
 
 
 def prepareHeadersForCzestoscWystapieniaISumyCzasowTrwania(avg_years, parameter_name):
     if parameter_name == 'h_water':
-        przedzial_stanow_header = ('Przedział stanów [cm]', 0, 0, 3, 4)
+        przedzial_stanow_header_text = 'Przedział stanów [cm]'
+        czestosc_wystapienia_stanow_header_text = 'Częstość wystąpienia stanów [cm]'
     elif parameter_name == 'Q':
-        przedzial_stanow_header = ('Przedział przepływów [m/s]', 0, 0, 3, 4)
+        przedzial_stanow_header_text = 'Przedział przepływów [m\u00B3/s]'
+        czestosc_wystapienia_stanow_header_text = 'Częstość wystąpienia przepływów [m\u00B3/s]'
     else:
         raise ValueError(PROVIDED_INVALID_WATER_PARAMETER_NAME_ERROR_MESSAGE)
 
-    czestosc_wystapienia_stanow_header = ('Częstość wystąpienia przepływów [m/s]', 0, 4, 2, 8)
+    przedzial_stanow_header = (przedzial_stanow_header_text, 0, 0, 3, 4)
+    czestosc_wystapienia_stanow_header = (czestosc_wystapienia_stanow_header_text, 0, 4, 2, 8)
     frequency_header_header = ('Suma częstości [dni]', 0, 12, 3, 3)
     average_year_header = ('Rok przeciętny [dni]', 0, 15, 3, 3)
     sumy_czasow_trwania_header = ('Sumy czasów trwania wraz z', 0, 18, 2, 4)
@@ -45,10 +48,10 @@ def appendCzestoscWystapieniaISumyCzasowTrwaniaWRokuPrzecietnymTableToDocument(d
     average_year_table.style = 'Table Grid'
 
     addHeadersToTable(average_year_table, headers_for_czestosc_wystapienia_i_sumy_czasow_trwania_table)
-    addTableContent(average_year_table, states_in_average_years_dataFrame, years_range)
+    __addTableContent(average_year_table, states_in_average_years_dataFrame, years_range)
 
 
-def addTableContent(table, table_content, years_range):
+def __addTableContent(table, table_content, years_range):
     for state_range, table_data_row in table_content.iterrows():
         row_cells = table.add_row().cells
         state_cell = row_cells[0]
@@ -63,27 +66,21 @@ def addTableContent(table, table_content, years_range):
 
         cell_column_index = 4
         for current_year in years_range:
-            addStyledContentToCell(row_cells[cell_column_index], table_data_row[str(current_year)])
+            addStyledContentToCellAndMerge(row_cells, cell_column_index, table_data_row[str(current_year)], 1)
             row_cells[cell_column_index].merge(row_cells[cell_column_index + 1])
             cell_column_index += 2
 
         frequency_first_cell_index = cell_column_index
-        addStyledContentToCell(row_cells[frequency_first_cell_index], table_data_row['frequency'])
-        row_cells[frequency_first_cell_index].merge(row_cells[frequency_first_cell_index + 1])
-        row_cells[frequency_first_cell_index].merge(row_cells[frequency_first_cell_index + 2])
+        addStyledContentToCellAndMerge(row_cells, frequency_first_cell_index, table_data_row['frequency'], 3)
 
         average_year_first_cell_index = frequency_first_cell_index + 3
-        addStyledContentToCell(row_cells[average_year_first_cell_index], table_data_row['average year'])
-        row_cells[average_year_first_cell_index].merge(row_cells[average_year_first_cell_index + 1])
-        row_cells[average_year_first_cell_index].merge(row_cells[average_year_first_cell_index + 2])
+        addStyledContentToCellAndMerge(row_cells, average_year_first_cell_index, table_data_row['average year'], 3)
 
         lower_first_cell_index = average_year_first_cell_index + 3
-        addStyledContentToCell(row_cells[lower_first_cell_index], table_data_row['lower'])
-        row_cells[lower_first_cell_index].merge(row_cells[lower_first_cell_index + 1])
+        addStyledContentToCellAndMerge(row_cells, lower_first_cell_index, table_data_row['lower'], 2)
 
         higher_first_cell_index = lower_first_cell_index + 2
-        addStyledContentToCell(row_cells[higher_first_cell_index], table_data_row['higher'])
-        row_cells[higher_first_cell_index].merge(row_cells[higher_first_cell_index + 1])
+        addStyledContentToCellAndMerge(row_cells, higher_first_cell_index, table_data_row['higher'], 2)
 
         if state_range == 'sum':
             __formatLastRow(row_cells, frequency_first_cell_index, lower_first_cell_index, higher_first_cell_index)
@@ -103,10 +100,3 @@ def __formatLastRow(row_cells, frequency_first_cell_index, lower_first_cell_inde
 
     run_with_higher_value = row_cells[higher_first_cell_index].paragraphs[0].runs[0]
     run_with_higher_value.clear()
-
-
-def addStyledContentToCell(cell, cell_content):
-    paragraph = cell.paragraphs[0]
-    paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    paragraph.style.font.size = Pt(8)
-    paragraph.add_run(str(cell_content))
