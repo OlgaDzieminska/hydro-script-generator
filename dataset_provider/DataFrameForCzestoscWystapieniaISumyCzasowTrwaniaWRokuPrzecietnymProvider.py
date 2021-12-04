@@ -6,7 +6,7 @@ import pandas as pd
 from dataset_provider.DatasetProvider import createTextualIndexesOfDataDividedByRanges, \
     findMinAndMaxValueOfWaterParameterInYearsRange, \
     createStatesForWaterParameter
-from main import PROVIDED_INVALID_WATER_PARAMETER_NAME_ERROR_MESSAGE
+from main import PROVIDED_INVALID_WATER_PARAMETER_NAME_ERROR_MESSAGE, TEMP_FOLDER_DIRECTORY
 
 
 def createDataFrameForCzestoscWystapieniaISumyCzasowTrwaniaWRokuPrzecietnymTable(dataset_for_years, years_range, parameter_name,
@@ -66,15 +66,13 @@ def createDataFrameForCzestoscWystapieniaISumyCzasowTrwaniaWRokuPrzecietnymTable
     output_dataframe.index = states_as_index
     if save_to_file:
         if parameter_name == 'Q':
-            out_directory = 'Flows'
-            file_name = 'Average flows for years ' + str(years_range[0]) + '-' + str(years_range[-1])
+            file_name = 'Average flows for years ' + str(years_range[0]) + '-' + str(years_range[-1]) + '.xlsx'
         elif parameter_name == 'h_water':
-            out_directory = 'Water_heights'
-            file_name = 'Average water states for years ' + str(years_range[0]) + '-' + str(years_range[-1])
+            file_name = 'Average water states for years ' + str(years_range[0]) + '-' + str(years_range[-1]) + '.xlsx'
         else:
             raise ValueError(PROVIDED_INVALID_WATER_PARAMETER_NAME_ERROR_MESSAGE)
-        out_file_path = os.path.join(os.getcwd(), out_directory, file_name)
-        writer = pd.ExcelWriter(out_file_path + '.xlsx')
+        out_file_path = os.path.join(TEMP_FOLDER_DIRECTORY, file_name)
+        writer = pd.ExcelWriter(out_file_path)
         output_dataframe.to_excel(writer, index=True)
         writer.save()
     return output_dataframe
