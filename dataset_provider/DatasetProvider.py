@@ -4,8 +4,9 @@ import os
 import numpy as np
 import pandas as pd
 
+import util
 from dataset_repository.IMGWDatasetRepository import DAILY_DATA_CSV_FILE_NAME_TEMPLATE
-from main import PROGRAM_ROOT_PATH, DAILY_VALUES_INPUT_FILES_DIRECTORY, PROVIDED_INVALID_WATER_PARAMETER_NAME_ERROR_MESSAGE, TEMP_FOLDER_DIRECTORY
+from main import DAILY_VALUES_INPUT_FILES_DIRECTORY, PROVIDED_INVALID_WATER_PARAMETER_NAME_ERROR_MESSAGE, TEMP_FOLDER_DIRECTORY
 
 DAILY_FLOWS_AND_STATES_INPUT_FILE_HEADER = ["ID", "City", "River", "YearHydro", "MonthHydro", "day", "h_water", "Q", "temp", "Month"]
 YEARLY_STATES_INPUT_FILE_HEADER = ['ID', 'City', 'River', 'YearHydro', 'half_year_indicator', 'parameter_name', 'extremes_indicator',
@@ -16,20 +17,13 @@ DATASET_LACK_OF_DATA = 99999.999
 DAILY_FLOWS_AND_STATES_IN_YEAR_HEADER = ['day', "MonthHydro", "h_water", 'Q']
 
 
-def __getDataFrameForDailyValues(file_path, city_name, river_name):
-    df = pd.read_csv(file_path, encoding='cp1250', header=None, names=DAILY_FLOWS_AND_STATES_INPUT_FILE_HEADER)
-    newDF = df[df["City"] == city_name]
-    newDF = newDF[newDF["River"] == river_name]
-    return newDF
-
-
 def provideDataForDailyFlowsAndStatesInYears(years_range, city_name, river_name):
     df_years = {}
     for year in years_range:
         df_months = pd.DataFrame()
         for month in np.arange(1, 13, 1):
             file_name = DAILY_DATA_CSV_FILE_NAME_TEMPLATE % (year, month)
-            file_path = os.path.join(PROGRAM_ROOT_PATH, TEMP_FOLDER_DIRECTORY, DAILY_VALUES_INPUT_FILES_DIRECTORY, file_name)
+            file_path = os.path.join(TEMP_FOLDER_DIRECTORY, DAILY_VALUES_INPUT_FILES_DIRECTORY, file_name)
             curr_df = __getDataFrameForDailyValues(file_path, city_name, river_name)[DAILY_FLOWS_AND_STATES_IN_YEAR_HEADER]
             max_index = curr_df.index.max() + 1
             curr_df.index = np.arange(max_index, max_index + len(curr_df), 1)
@@ -149,3 +143,15 @@ def createFlowStates(Q_min, Q_max):
 
 def createTextualIndexesOfDataDividedByRanges(ranges):
     return [str(state[0]) + '-' + str(state[1]) for (state) in ranges]
+
+
+def filterRiverNameAndCityNameInInputDataFrame(input_file_df, city_name, river_name):
+    river_name_pattern = util.createRegexForRiverNameInInputFile(river_name)
+    input_file_df = input_file_df[input_file_df["City"] == city_name.upper()]
+
+    return input_file_df[input_file_df['River'].str.contains(river_name_pattern)]
+
+
+def __getDataFrameForDailyValues(file_path, city_name, river_name):
+    input_file_df = pd.read_csv(file_path, encoding='cp1250', header=None, names=DAILY_FLOWS_AND_STATES_INPUT_FILE_HEADER)
+    return filterRiverNameAndCityNameInInputDataFrame(input_file_df, city_name, river_name)

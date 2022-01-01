@@ -1,7 +1,9 @@
 import os
 import shutil
+from datetime import datetime
 
-from main import TEMP_FOLDER_DIRECTORY, PROGRAM_ROOT_PATH, CHART_IMAGES_DIRECTORY, DAILY_VALUES_INPUT_FILES_DIRECTORY, YEARLY_VALUES_INPUT_FILES_DIRECTORY
+from main import TEMP_FOLDER_DIRECTORY, PROGRAM_ROOT_PATH, CHART_IMAGES_DIRECTORY, DAILY_VALUES_INPUT_FILES_DIRECTORY, YEARLY_VALUES_INPUT_FILES_DIRECTORY, \
+    OUTPUT_FILE_NAME_BASE
 
 
 def printProgressBar(iteration, total, prefix='', suffix='', decimals=1, length=100, fill='█', printEnd="\r"):
@@ -44,3 +46,13 @@ def createRequiredDirectoriesIfDoesNotExists():
         path_for_directory = os.path.join(PROGRAM_ROOT_PATH, TEMP_FOLDER_DIRECTORY, directory_to_create)
         if not os.path.exists(path_for_directory):
             os.makedirs(path_for_directory)
+
+
+def provideOutputFileName():
+    now = datetime.now()
+    data_and_time_string = now.strftime("%d-%m-%Y %H:%M:%S")
+    return "%s %s.docx" % (OUTPUT_FILE_NAME_BASE, data_and_time_string)
+
+
+def createRegexForRiverNameInInputFile(search_river_name):
+    return '^' + search_river_name + ' [(]'

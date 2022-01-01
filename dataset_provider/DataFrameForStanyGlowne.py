@@ -2,9 +2,9 @@ import os
 
 import pandas as pd
 
-from dataset_provider.DatasetProvider import YEARLY_STATES_INPUT_FILE_HEADER
+from dataset_provider import DatasetProvider
 from dataset_repository.IMGWDatasetRepository import YEARLY_DATA_CSV_FILE_NAME_TEMPLATE_Q, YEARLY_DATA_CSV_FILE_NAME_TEMPLATE_H_WATER
-from main import PROGRAM_ROOT_PATH, TEMP_FOLDER_DIRECTORY, YEARLY_VALUES_INPUT_FILES_DIRECTORY, PROVIDED_INVALID_WATER_PARAMETER_NAME_ERROR_MESSAGE
+from main import TEMP_FOLDER_DIRECTORY, YEARLY_VALUES_INPUT_FILES_DIRECTORY, PROVIDED_INVALID_WATER_PARAMETER_NAME_ERROR_MESSAGE
 
 STANY_GLOWNE_1_STOPNIA_COLUMNS = ['NW', 'SW', 'WW']
 STANY_GLOWNE_2_STOPNIA_COLUMNS = ['NNW', 'SNW', 'WNW', 'NSW', 'SSW', 'WSW', 'NWW', 'SWW', 'WWW']
@@ -33,12 +33,11 @@ def addSumRow(df_years):
 
 
 def __getValuesForYearlyValues(file_path, city_name, river_name):
-    df = pd.read_csv(file_path, encoding='cp1250', header=None, names=YEARLY_STATES_INPUT_FILE_HEADER)
-    newDF = df[df["City"] == city_name.upper()]
-    newDF = newDF[newDF["River"] == river_name]
-    NW_value = newDF[newDF['extremes_indicator'] == EXTREMES_INDICATOR_FOR_NW]['parameter_value'].min()
-    SW_value = __getValueOfSW(newDF)
-    WW_value = newDF[newDF['extremes_indicator'] == EXTREMES_INDICATOR_FOR_WW]['parameter_value'].max()
+    input_file_df = pd.read_csv(file_path, encoding='cp1250', header=None, names=DatasetProvider.YEARLY_STATES_INPUT_FILE_HEADER)
+    input_file_df = DatasetProvider.filterRiverNameAndCityNameInInputDataFrame(input_file_df, city_name, river_name)
+    NW_value = input_file_df[input_file_df['extremes_indicator'] == EXTREMES_INDICATOR_FOR_NW]['parameter_value'].min()
+    SW_value = __getValueOfSW(input_file_df)
+    WW_value = input_file_df[input_file_df['extremes_indicator'] == EXTREMES_INDICATOR_FOR_WW]['parameter_value'].max()
     return NW_value, SW_value, WW_value
 
 
@@ -55,15 +54,13 @@ def __getValueOfSW(dataFrame):
 def __provideFilePathForYearlyInputDataset(parameter_name, year):
     if parameter_name == 'h_water':
         file_name = YEARLY_DATA_CSV_FILE_NAME_TEMPLATE_H_WATER % year
-        return os.path.join(PROGRAM_ROOT_PATH, TEMP_FOLDER_DIRECTORY, YEARLY_VALUES_INPUT_FILES_DIRECTORY, file_name)
+        return os.path.join(TEMP_FOLDER_DIRECTORY, YEARLY_VALUES_INPUT_FILES_DIRECTORY, file_name)
     elif parameter_name == 'Q':
         file_name = YEARLY_DATA_CSV_FILE_NAME_TEMPLATE_Q % year
-        return os.path.join(PROGRAM_ROOT_PATH, TEMP_FOLDER_DIRECTORY, YEARLY_VALUES_INPUT_FILES_DIRECTORY, file_name)
+        return os.path.join(TEMP_FOLDER_DIRECTORY, YEARLY_VALUES_INPUT_FILES_DIRECTORY, file_name)
     else:
         raise ValueError(PROVIDED_INVALID_WATER_PARAMETER_NAME_ERROR_MESSAGE)
 
-
-# STANY_GLOWNE_2_STOPNIA_COLUMNS = ['NNW', 'SNW', 'WNW', 'NSW', 'SSW', 'WSW', 'NWW', 'SWW', 'WWW']
 
 def provideDataForYearlyFlowsAndStatesInYearsForSecondDegree(yearly_data_for_first_degree):
     input_df_without_sum = yearly_data_for_first_degree.loc[yearly_data_for_first_degree.index[:-1]]

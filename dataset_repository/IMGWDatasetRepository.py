@@ -4,7 +4,7 @@ import zipfile
 import requests
 
 from main import PROVIDED_INVALID_WATER_PARAMETER_NAME_ERROR_MESSAGE, COULD_NOT_FIND_DATASET_FOR_REQUESTED_YEAR, DAILY_VALUES_INPUT_FILES_DIRECTORY, \
-    PROGRAM_ROOT_PATH, TEMP_FOLDER_DIRECTORY, YEARLY_VALUES_INPUT_FILES_DIRECTORY
+    TEMP_FOLDER_DIRECTORY, YEARLY_VALUES_INPUT_FILES_DIRECTORY
 from util import printProgressBar
 
 BASE_URL = 'https://danepubliczne.imgw.pl/data/dane_pomiarowo_obserwacyjne/dane_hydrologiczne'
@@ -38,7 +38,7 @@ def __download_file(url: str, destination_directory: str):
 
 
 def downloadDailyDataset(year):
-    destination_directory = os.path.join(PROGRAM_ROOT_PATH, TEMP_FOLDER_DIRECTORY, DAILY_VALUES_INPUT_FILES_DIRECTORY)
+    destination_directory = os.path.join(TEMP_FOLDER_DIRECTORY, DAILY_VALUES_INPUT_FILES_DIRECTORY)
     printProgressBar(0, 12, prefix='Postęp:', suffix='Ukończono', length=50)
     for current_month in range(1, 13):
         download_file_name = DAILY_DATA_ZIP_FILE_NAME_TEMPLATE % (year, current_month)
@@ -56,7 +56,7 @@ def extractDatasetFromArchive(file_path, download_file_path):
 
 
 def downloadYearlyDataset(year, parameter_name):
-    destination_directory = os.path.join(PROGRAM_ROOT_PATH, TEMP_FOLDER_DIRECTORY, YEARLY_VALUES_INPUT_FILES_DIRECTORY)
+    destination_directory = os.path.join(TEMP_FOLDER_DIRECTORY, YEARLY_VALUES_INPUT_FILES_DIRECTORY)
     if parameter_name == 'h_water':
         download_file_name = YEARLY_DATA_ZIP_FILE_NAME_TEMPLATE_H_WATER % year
     elif parameter_name == 'Q':

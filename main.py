@@ -1,6 +1,5 @@
 import json
 import os
-
 import re
 
 import numpy as np
@@ -20,6 +19,8 @@ PROVIDED_INVALID_WATER_PARAMETER_NAME_ERROR_MESSAGE = 'Podano nieprawidłową na
 COULD_NOT_FIND_DATASET_FOR_REQUESTED_YEAR = 'Nie można znaleźć danych dla podanego roku.'
 
 ORDERED_STANY = ["NW", "SW", "WW"]
+
+OUTPUT_FILE_NAME_BASE = 'Operat hydrologiczny'
 
 
 def loadSettingsFromFile():
