@@ -1,10 +1,10 @@
 import os
-from random import randint
 
 from docx import Document
 
 from dataset_provider import DatasetProvider, DataFrameForStanyGlowne
 from dataset_repository import IMGWDatasetRepository
+from operat_report_tests import ReportTestUtils
 from table_generator import StanyGlowne1StopniaTableGenerator
 
 os.chdir("../")
@@ -27,7 +27,5 @@ dataset_for_years = DatasetProvider.provideDataForDailyFlowsAndStatesInYears(yea
 StanyGlowneTable = DataFrameForStanyGlowne.provideDataForYearlyFlowsAndStatesInYearsForFirstDegree(years_range, city_name, river_name, parameter_name)
 
 StanyGlowne1StopniaTableGenerator.appendStanyGlowneTableToDocument(document, StanyGlowneTable)
-doc_name_iter = randint(0, 100)
-document_output_filepath = 'temp/' + str(doc_name_iter) + '.docx'
-document.save(document_output_filepath)
-print('Saved document to:' + document_output_filepath)
+
+ReportTestUtils.saveTestDocumentFileAndPrintFileName(document)

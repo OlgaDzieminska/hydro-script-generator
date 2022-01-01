@@ -16,6 +16,7 @@ YEARLY_DATA_ZIP_FILE_NAME_TEMPLATE_Q = "polr_Q_%d.zip"
 YEARLY_DATA_CSV_FILE_NAME_TEMPLATE_Q = "polr_Q_%d.csv"
 YEARLY_DATA_ZIP_FILE_NAME_TEMPLATE_H_WATER = "polr_H_%d.zip"
 YEARLY_DATA_CSV_FILE_NAME_TEMPLATE_H_WATER = "polr_H_%d.csv"
+YEARLY_VALUES_DOWNLOAD_PATH = os.path.join(TEMP_FOLDER_DIRECTORY, YEARLY_VALUES_INPUT_FILES_DIRECTORY)
 
 
 def __download_file(url: str, destination_directory: str):
@@ -55,8 +56,18 @@ def extractDatasetFromArchive(file_path, download_file_path):
         zip_ref.extractall(file_path)
 
 
+def downloadYearlyDatasets(years_range, parameter_name):
+    number_of_years = len(years_range)
+    printProgressBar(0, number_of_years, prefix='Postęp:', suffix='Ukończono', length=50)
+
+    for i, current_year in enumerate(years_range):
+        downloadYearlyDataset(current_year, parameter_name)
+        printProgressBar(i + 1, number_of_years, prefix='Postęp:', suffix='Ukończono', length=50)
+
+    print('Zakończono pobieranie zbioru danych dla rocznych i półrocznych.')
+
+
 def downloadYearlyDataset(year, parameter_name):
-    destination_directory = os.path.join(TEMP_FOLDER_DIRECTORY, YEARLY_VALUES_INPUT_FILES_DIRECTORY)
     if parameter_name == 'h_water':
         download_file_name = YEARLY_DATA_ZIP_FILE_NAME_TEMPLATE_H_WATER % year
     elif parameter_name == 'Q':
@@ -64,7 +75,6 @@ def downloadYearlyDataset(year, parameter_name):
     else:
         raise ValueError(PROVIDED_INVALID_WATER_PARAMETER_NAME_ERROR_MESSAGE)
     url = BASE_URL + HALF_YEARLY_DATASET_ENDPOINT % year + '/' + download_file_name
-    __download_file(url, destination_directory=destination_directory)
-    extractDatasetFromArchive(destination_directory, download_file_name)
-    os.remove(os.path.join(destination_directory, download_file_name))
-    print('Zakończono pobieranie zbioru danych dla rocznych i półrocznych roku: %d.' % year)
+    __download_file(url, destination_directory=YEARLY_VALUES_DOWNLOAD_PATH)
+    extractDatasetFromArchive(YEARLY_VALUES_DOWNLOAD_PATH, download_file_name)
+    os.remove(os.path.join(YEARLY_VALUES_DOWNLOAD_PATH, download_file_name))
