@@ -3,7 +3,7 @@ import os.path
 import numpy as np
 from matplotlib import pyplot as plt
 
-from HydrologyReportCreator import TEMP_FOLDER_DIRECTORY, CHART_IMAGES_DIRECTORY
+from Constants import TEMP_FOLDER_DIRECTORY, CHART_IMAGES_DIRECTORY
 
 
 def printKrzywaSumowaWUkladzieProstokatnym(datasetForKrzywaSumowaWUkladzieProstokatnym, years):

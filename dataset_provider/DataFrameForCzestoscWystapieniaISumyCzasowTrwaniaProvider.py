@@ -6,7 +6,7 @@ import pandas as pd
 from dataset_provider.DatasetProvider import createTextualIndexesOfDataDividedByRanges, \
     DAILY_FLOWS_AND_STATES_IN_YEAR_HEADER, \
     findMinAndMaxValueOfWaterParameterInYearsRange, createStatesForWaterParameter, findMinAndMaxValueOfWaterParameter
-from HydrologyReportCreator import ORDERED_HYDRO_MONTHS, PROVIDED_INVALID_WATER_PARAMETER_NAME_ERROR_MESSAGE, TEMP_FOLDER_DIRECTORY
+from Constants import ORDERED_HYDRO_MONTHS, PROVIDED_INVALID_WATER_PARAMETER_NAME_ERROR_MESSAGE, TEMP_FOLDER_DIRECTORY
 
 
 def createDataFrameForCzestoscWystapieniaISumyCzasowTrwaniaTable(dataset_for_years, years_range, parameter_name,

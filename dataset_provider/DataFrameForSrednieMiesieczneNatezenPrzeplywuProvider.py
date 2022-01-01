@@ -3,7 +3,7 @@ import os.path
 import numpy as np
 import pandas as pd
 
-from HydrologyReportCreator import ORDERED_HYDRO_MONTHS, TEMP_FOLDER_DIRECTORY
+from Constants import ORDERED_HYDRO_MONTHS, TEMP_FOLDER_DIRECTORY
 
 
 def createDataFrameForSrednieMiesieczneNatezeniaPrzeplywuTable(dataset_for_years, save_to_file):

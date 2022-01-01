@@ -1,3 +1,4 @@
+from table_generator import TableGenerator
 from table_generator.TableGenerator import addHeadersToTable
 
 
@@ -16,7 +17,20 @@ def prepareHeadersForStanyGlowneIIStopnia():
     return headers_definitions
 
 
-def appendStanyGlowneIIStopniaTableToDocument(document):
+def __addTableContent(table, table_data_row):
+    row_cells = table.add_row().cells
+    cell_index_after_nnw_cell = TableGenerator.addStyledContentToCellAndMerge(row_cells, 0, table_data_row['NNW'], 2)
+    cell_index_after_snw_cell = TableGenerator.addStyledContentToCellAndMerge(row_cells, cell_index_after_nnw_cell, table_data_row['SNW'], 2)
+    cell_index_after_wnw_cell = TableGenerator.addStyledContentToCellAndMerge(row_cells, cell_index_after_snw_cell, table_data_row['WNW'], 2)
+    cell_index_after_nsw_cell = TableGenerator.addStyledContentToCellAndMerge(row_cells, cell_index_after_wnw_cell, table_data_row['NSW'], 2)
+    cell_index_after_ssw_cell = TableGenerator.addStyledContentToCellAndMerge(row_cells, cell_index_after_nsw_cell, table_data_row['SSW'], 2)
+    cell_index_after_wsw_cell = TableGenerator.addStyledContentToCellAndMerge(row_cells, cell_index_after_ssw_cell, table_data_row['WSW'], 2)
+    cell_index_after_nww_cell = TableGenerator.addStyledContentToCellAndMerge(row_cells, cell_index_after_wsw_cell, table_data_row['NWW'], 2)
+    cell_index_after_sww_cell = TableGenerator.addStyledContentToCellAndMerge(row_cells, cell_index_after_nww_cell, table_data_row['SWW'], 2)
+    cell_index_after_www_cell = TableGenerator.addStyledContentToCellAndMerge(row_cells, cell_index_after_sww_cell, table_data_row['WWW'], 2)
+
+
+def appendStanyGlowneIIStopniaTableToDocument(document, table_content):
     number_of_columns = 18
     number_of_rows_for_headers_cells = 3
     headers_for_stany_glowne_II_stopnia_table = prepareHeadersForStanyGlowneIIStopnia()
@@ -24,3 +38,4 @@ def appendStanyGlowneIIStopniaTableToDocument(document):
     StanyGlowneIIStopniaTable.style = 'Table Grid'
 
     addHeadersToTable(StanyGlowneIIStopniaTable, headers_for_stany_glowne_II_stopnia_table)
+    __addTableContent(StanyGlowneIIStopniaTable, table_content)

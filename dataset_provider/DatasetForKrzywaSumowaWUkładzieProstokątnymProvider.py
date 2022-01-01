@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-from HydrologyReportCreator import MONTHS
+from Constants import MONTHS
 
 
 def provideDatasetForKrzywaSumowaWUkladzieProstokatnym(dataset_for_years):
