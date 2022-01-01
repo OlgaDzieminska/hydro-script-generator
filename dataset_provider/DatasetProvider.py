@@ -6,7 +6,7 @@ import pandas as pd
 
 import util
 from dataset_repository.IMGWDatasetRepository import DAILY_DATA_CSV_FILE_NAME_TEMPLATE
-from main import DAILY_VALUES_INPUT_FILES_DIRECTORY, PROVIDED_INVALID_WATER_PARAMETER_NAME_ERROR_MESSAGE, TEMP_FOLDER_DIRECTORY
+from HydrologyReportCreator import DAILY_VALUES_INPUT_FILES_DIRECTORY, PROVIDED_INVALID_WATER_PARAMETER_NAME_ERROR_MESSAGE, TEMP_FOLDER_DIRECTORY
 
 DAILY_FLOWS_AND_STATES_INPUT_FILE_HEADER = ["ID", "City", "River", "YearHydro", "MonthHydro", "day", "h_water", "Q", "temp", "Month"]
 YEARLY_STATES_INPUT_FILE_HEADER = ['ID', 'City', 'River', 'YearHydro', 'half_year_indicator', 'parameter_name', 'extremes_indicator',

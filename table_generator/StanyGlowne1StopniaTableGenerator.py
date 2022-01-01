@@ -1,4 +1,4 @@
-from main import ORDERED_STANY
+from HydrologyReportCreator import ORDERED_STANY
 from table_generator import TableGenerator
 
 

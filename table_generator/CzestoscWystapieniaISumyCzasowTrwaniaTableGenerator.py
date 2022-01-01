@@ -1,7 +1,7 @@
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.shared import Pt
 
-from main import ORDERED_HYDRO_MONTHS, PROVIDED_INVALID_WATER_PARAMETER_NAME_ERROR_MESSAGE
+from HydrologyReportCreator import ORDERED_HYDRO_MONTHS, PROVIDED_INVALID_WATER_PARAMETER_NAME_ERROR_MESSAGE
 from table_generator.TableGenerator import addHeadersToTable, SIGMA_SIGN, addStyledContentToCellAndMerge
 
 

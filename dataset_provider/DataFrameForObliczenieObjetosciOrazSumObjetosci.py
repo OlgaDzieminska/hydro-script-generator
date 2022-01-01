@@ -3,7 +3,7 @@ import os
 import numpy as np
 import pandas as pd
 
-from main import ORDERED_HYDRO_MONTHS, TEMP_FOLDER_DIRECTORY
+from HydrologyReportCreator import ORDERED_HYDRO_MONTHS, TEMP_FOLDER_DIRECTORY
 
 
 def createDataFrameForObliczenieObjestosciOrazSumObjetosciTable(dataset_for_years, save_to_file):

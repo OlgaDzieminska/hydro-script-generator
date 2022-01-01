@@ -1,6 +1,6 @@
 import pandas as pd
 
-from main import loadSettingsFromFile, print_greetings, printMainStatesFluctuationCurveForYears, printDailyFlowsAndStatesFluctuationCurveChart
+from HydrologyReportCreator import loadSettingsFromFile, print_greetings, printMainStatesFluctuationCurveForYears, printDailyFlowsAndStatesFluctuationCurveChart
 
 # Task 1 - load settings from file
 settingsDictionary = loadSettingsFromFile()

@@ -1,7 +1,7 @@
 import numpy as np
 from matplotlib import pyplot as plt
 
-from main import TEMP_FOLDER_DIRECTORY, CHARTS_FONT_SIZE
+from HydrologyReportCreator import TEMP_FOLDER_DIRECTORY, CHARTS_FONT_SIZE
 
 
 def printDailyFlowsAndStatesFluctuationCurveChart(przeplyw, stanWody, river_name, city_name,

@@ -1,4 +1,4 @@
-from main import ORDERED_HYDRO_MONTHS
+from HydrologyReportCreator import ORDERED_HYDRO_MONTHS
 from table_generator import TableGenerator
 
 

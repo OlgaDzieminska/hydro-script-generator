@@ -4,7 +4,7 @@ import re
 import pandas as pd
 from matplotlib import pyplot as plt
 
-from main import TEMP_FOLDER_DIRECTORY
+from HydrologyReportCreator import TEMP_FOLDER_DIRECTORY
 
 
 def printMainStatesFluctuationCurveForYears(main_states, main_states_2_degree, river_name, section_name,
