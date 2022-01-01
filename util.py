@@ -1,8 +1,9 @@
+import json
 import os
 import shutil
 from datetime import datetime
 
-from main import TEMP_FOLDER_DIRECTORY, PROGRAM_ROOT_PATH, CHART_IMAGES_DIRECTORY, DAILY_VALUES_INPUT_FILES_DIRECTORY, YEARLY_VALUES_INPUT_FILES_DIRECTORY, \
+from main import TEMP_FOLDER_DIRECTORY, CHART_IMAGES_DIRECTORY, DAILY_VALUES_INPUT_FILES_DIRECTORY, YEARLY_VALUES_INPUT_FILES_DIRECTORY, \
     OUTPUT_FILE_NAME_BASE
 
 
@@ -29,7 +30,7 @@ def printProgressBar(iteration, total, prefix='', suffix='', decimals=1, length=
 
 
 def removeTemporaryFiles():
-    temp_directory = os.path.join(PROGRAM_ROOT_PATH, TEMP_FOLDER_DIRECTORY)
+    temp_directory = os.path.join(TEMP_FOLDER_DIRECTORY)
     for filename in os.listdir(temp_directory):
         file_path = os.path.join(temp_directory, filename)
         try:
@@ -43,7 +44,7 @@ def removeTemporaryFiles():
 
 def createRequiredDirectoriesIfDoesNotExists():
     for directory_to_create in [CHART_IMAGES_DIRECTORY, DAILY_VALUES_INPUT_FILES_DIRECTORY, YEARLY_VALUES_INPUT_FILES_DIRECTORY]:
-        path_for_directory = os.path.join(PROGRAM_ROOT_PATH, TEMP_FOLDER_DIRECTORY, directory_to_create)
+        path_for_directory = os.path.join(TEMP_FOLDER_DIRECTORY, directory_to_create)
         if not os.path.exists(path_for_directory):
             os.makedirs(path_for_directory)
 
@@ -56,3 +57,31 @@ def provideOutputFileName():
 
 def createRegexForRiverNameInInputFile(search_river_name):
     return '^' + search_river_name + ' [(]'
+
+
+def loadSettingsFromFile():
+    file = open('project_settings.json')
+    data = json.load(file)
+    file.close()
+    return data
+
+
+def print_greetings():
+    print('Generator operatów')
+    print('Autor: Olga Dziemińska')
+
+
+def fetch_request_data_from_UI():
+    river_name_from_UI = input('Podaj nazwę rzeki, kanału lub jeziora. Format podanej nazwy jeziora powinien wyglądać następująco:"Jez. <nazwa jeziora>":')
+    city_name_from_UI = input('Podaj przekrój rzeki (nazwa miasta):')
+    year_from_from_UI = input('Podaj rok, od którego ma być generowany operat:')
+    year_to_from_UI = input('Podaj rok, do którego ma być generowany operat:')
+    year_of_krzywa_wahan_stanow_i_przeplywow_codziennych = input('Podaj rok, dla którego ma być wygenerowana krzywa wahań stanów i przepływów codziennych')
+    first_year_of_multiannual_period = input(
+        'Podaj początkowy rok czterolecia, dla którego mają byś wykonane histogramy częstości wystąpienia stanów/przepływów i krzywe sum czasów '
+        'trwania stanów/przepływów wraz z wyższymi:')
+    return {'river_name': river_name_from_UI, 'city_name': city_name_from_UI, 'year_from_from_UI': year_from_from_UI,
+            'year_to_from_UI': year_to_from_UI,
+            'year_of_krzywa_wahan_stanow_i_przeplywow_codziennych': year_of_krzywa_wahan_stanow_i_przeplywow_codziennych,
+            'first_year_of_multiannual_period':
+                first_year_of_multiannual_period}
