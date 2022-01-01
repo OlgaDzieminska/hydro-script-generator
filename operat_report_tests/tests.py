@@ -22,7 +22,7 @@ print(river_name)
 print(data_from_UI)
 
 # TEST printDailyFlowsAndStatesFluctuationCurveChart
-df = pd.read_csv("./testStatesAndFlows.csv", encoding='cp1250', sep='\t')
+df = pd.read_csv("../testStatesAndFlows.csv", encoding='cp1250', sep='\t')
 dni = df["dzien"]
 stanWody = df["stan wody"]
 przeplyw = df["przeplyw"]
