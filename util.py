@@ -51,7 +51,7 @@ def createRequiredDirectoriesIfDoesNotExists():
 
 def provideOutputFileName():
     now = datetime.now()
-    data_and_time_string = now.strftime("%d-%m-%Y %H:%M:%S")
+    data_and_time_string = now.strftime("%d-%m-%Y %H.%M.%S")
     return "%s %s.docx" % (OUTPUT_FILE_NAME_BASE, data_and_time_string)
 
 
@@ -68,20 +68,17 @@ def loadSettingsFromFile():
 
 def print_greetings():
     print('Generator operatów')
-    print('Autor: Olga Dziemińska')
+    print('Autor: Olga Dziemińska\n')
 
 
 def fetch_request_data_from_UI():
     river_name_from_UI = input('Podaj nazwę rzeki, kanału lub jeziora. Format podanej nazwy jeziora powinien wyglądać następująco:"Jez. <nazwa jeziora>":')
     city_name_from_UI = input('Podaj przekrój rzeki (nazwa miasta):')
-    year_from_from_UI = input('Podaj rok, od którego ma być generowany operat:')
-    year_to_from_UI = input('Podaj rok, do którego ma być generowany operat:')
-    year_of_krzywa_wahan_stanow_i_przeplywow_codziennych = input('Podaj rok, dla którego ma być wygenerowana krzywa wahań stanów i przepływów codziennych')
-    first_year_of_multiannual_period = input(
+    year_from_from_UI = int(input('Podaj rok, od którego ma być generowany operat:'))
+    year_to_from_UI = int(input('Podaj rok, do którego ma być generowany operat:'))
+    year_of_krzywa_wahan_stanow_i_przeplywow_codziennych = int(
+        input('Podaj rok, dla którego ma być wygenerowana krzywa wahań stanów i przepływów codziennych:'))
+    first_year_of_multiannual_period = int(input(
         'Podaj początkowy rok czterolecia, dla którego mają byś wykonane histogramy częstości wystąpienia stanów/przepływów i krzywe sum czasów '
-        'trwania stanów/przepływów wraz z wyższymi:')
-    return {'river_name': river_name_from_UI, 'city_name': city_name_from_UI, 'year_from_from_UI': year_from_from_UI,
-            'year_to_from_UI': year_to_from_UI,
-            'year_of_krzywa_wahan_stanow_i_przeplywow_codziennych': year_of_krzywa_wahan_stanow_i_przeplywow_codziennych,
-            'first_year_of_multiannual_period':
-                first_year_of_multiannual_period}
+        'trwania stanów/przepływów wraz z wyższymi:'))
+    return river_name_from_UI, city_name_from_UI, year_from_from_UI, year_to_from_UI, year_of_krzywa_wahan_stanow_i_przeplywow_codziennych, first_year_of_multiannual_period

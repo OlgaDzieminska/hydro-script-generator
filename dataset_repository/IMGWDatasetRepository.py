@@ -78,3 +78,10 @@ def downloadYearlyDataset(year, parameter_name):
     __download_file(url, destination_directory=YEARLY_VALUES_DOWNLOAD_PATH)
     extractDatasetFromArchive(YEARLY_VALUES_DOWNLOAD_PATH, download_file_name)
     os.remove(os.path.join(YEARLY_VALUES_DOWNLOAD_PATH, download_file_name))
+
+
+def downloadRequiredDataFromInternet(years_range):
+    for current_year in years_range:
+        downloadDailyDataset(current_year)
+    downloadYearlyDatasets(years_range, 'h_water')
+    downloadYearlyDatasets(years_range, 'Q')

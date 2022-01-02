@@ -1,8 +1,4 @@
 {
-  "output_file_template": [
-    "histogram czestosci wystapienia stanow",
-    "krzywe sum czasow trwania stanow",
-    "krzywa sumowa 10 lat",
-    "krzywa konsumpcyjna"
-  ]
+  "include_first_row_for_higher_in_frequency_table": "True",
+  "common_range_of_states_for_multiannual": "True"
 }

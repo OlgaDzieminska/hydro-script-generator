@@ -2,9 +2,9 @@ import os
 
 import pandas as pd
 
+from Constants import TEMP_FOLDER_DIRECTORY, YEARLY_VALUES_INPUT_FILES_DIRECTORY, PROVIDED_INVALID_WATER_PARAMETER_NAME_ERROR_MESSAGE
 from dataset_provider import DatasetProvider
 from dataset_repository.IMGWDatasetRepository import YEARLY_DATA_CSV_FILE_NAME_TEMPLATE_Q, YEARLY_DATA_CSV_FILE_NAME_TEMPLATE_H_WATER
-from Constants import TEMP_FOLDER_DIRECTORY, YEARLY_VALUES_INPUT_FILES_DIRECTORY, PROVIDED_INVALID_WATER_PARAMETER_NAME_ERROR_MESSAGE
 
 STANY_GLOWNE_1_STOPNIA_COLUMNS = ['NW', 'SW', 'WW']
 STANY_GLOWNE_2_STOPNIA_COLUMNS = ['NNW', 'SNW', 'WNW', 'NSW', 'SSW', 'WSW', 'NWW', 'SWW', 'WWW']
@@ -18,7 +18,7 @@ def provideDataForYearlyFlowsAndStatesInYearsForFirstDegree(years_range, city_na
     df_years = pd.DataFrame(columns=STANY_GLOWNE_1_STOPNIA_COLUMNS)
     for year in years_range:
         input_file_path = __provideFilePathForYearlyInputDataset(parameter_name, year)
-        NW_value, SW_value, WW_value = __getValuesForYearlyValues(input_file_path, city_name, river_name)
+        NW_value, SW_value, WW_value = __getValuesForYearlyValues(input_file_path, city_name, river_name, year)
         df_years.loc[year] = [NW_value, SW_value, WW_value]
     df_years = df_years.astype({"NW": int, "SW": int, "WW": int})
     addSumRow(df_years)
@@ -32,9 +32,9 @@ def addSumRow(df_years):
     df_years.loc['sum'] = [NW_sum, SW_sum, WW_sum]
 
 
-def __getValuesForYearlyValues(file_path, city_name, river_name):
+def __getValuesForYearlyValues(file_path, city_name, river_name, year):
     input_file_df = pd.read_csv(file_path, encoding='cp1250', header=None, names=DatasetProvider.YEARLY_STATES_INPUT_FILE_HEADER)
-    input_file_df = DatasetProvider.filterRiverNameAndCityNameInInputDataFrame(input_file_df, city_name, river_name)
+    input_file_df = DatasetProvider.filterRiverNameAndCityNameInInputDataFrame(input_file_df, city_name, river_name, year)
     NW_value = input_file_df[input_file_df['extremes_indicator'] == EXTREMES_INDICATOR_FOR_NW]['parameter_value'].min()
     SW_value = __getValueOfSW(input_file_df)
     WW_value = input_file_df[input_file_df['extremes_indicator'] == EXTREMES_INDICATOR_FOR_WW]['parameter_value'].max()
