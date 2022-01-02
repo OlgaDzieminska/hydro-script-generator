@@ -3,7 +3,7 @@ import os.path
 import numpy as np
 from matplotlib import pyplot as plt
 
-from Constants import TEMP_FOLDER_DIRECTORY, CHART_IMAGES_DIRECTORY
+import Constants
 
 
 def printKrzywaSumowaWUkladzieProstokatnym(datasetForKrzywaSumowaWUkladzieProstokatnym, years):
@@ -25,8 +25,12 @@ def printKrzywaSumowaWUkladzieProstokatnym(datasetForKrzywaSumowaWUkladzieProsto
     plt.ylim(0, max(flow_line) + 1000)
 
     ax.legend()
-    ax.set_ylabel('$\sum V [mln m^3]$', fontsize=13)
-    ax.set_title('Krzywa sumowa w uładzie prostokątnym', fontsize=17)
-    file_name = 'Krzywa sumowa w układzie prostokątnym.png'
-    file_path = os.path.join(TEMP_FOLDER_DIRECTORY, CHART_IMAGES_DIRECTORY, file_name)
+    ax.set_ylabel('$\suma V [mln m^3]$', fontsize=13)
+
+    chart_name = 'Krzywa sumowa w uładzie prostokątnym'
+    ax.set_title(chart_name, fontsize=17)
+    file_name = chart_name + '.png'
+    file_path = os.path.join(Constants.TEMP_FOLDER_DIRECTORY, Constants.CHART_IMAGES_DIRECTORY, file_name)
     fig.savefig(file_path)
+
+    return file_name, chart_name
