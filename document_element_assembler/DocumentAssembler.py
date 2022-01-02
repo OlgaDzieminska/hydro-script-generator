@@ -6,7 +6,6 @@ from docx.shared import Cm
 from docx.shared import Pt
 
 from Constants import TEMP_FOLDER_DIRECTORY, CHART_IMAGES_DIRECTORY
-from chart_generator import MainStatesFluctuationCurveForYears
 
 
 def createDocumentWithFirstPage(city_name, river_name):
@@ -38,25 +37,14 @@ def __appendFirstPageToDocument(document, city_name, river_name):
     r1.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
 
 
-def addChartToDocument(document, page_heading_content, chart_filename):
-    document.add_page_break()
-    page_heading = document.add_heading(page_heading_content, 2)
-    page_heading.add_run().bold = True
-    page_heading.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.LEFT
-
+def addChartToDocument(document, index_of_element, chart_title, chart_filename):
+    addHeadingToDocumentElement(document, index_of_element, chart_title)
     path_to_chart_file = os.path.join(TEMP_FOLDER_DIRECTORY, CHART_IMAGES_DIRECTORY, chart_filename)
     document.add_picture(path_to_chart_file, width=Cm(19))
 
 
-def addMainStatesFluctuationCurveForYears(document, index_of_element, main_states_first_degree,
-                                          main_states_second_degree,
-                                          river_name, city_name,
-                                          year_from, year_to):
-    krzywa_wahan_stanow_glownych_1_stopnia_chart_filename, krzywa_wahan_stanow_glownych_1_stopnia_chart_title = MainStatesFluctuationCurveForYears.printMainStatesFluctuationCurveForYears(
-        main_states_first_degree,
-        main_states_second_degree,
-        river_name, city_name,
-        year_from, year_to)
-
-    page_heading_content = '%d. %s' % (index_of_element, krzywa_wahan_stanow_glownych_1_stopnia_chart_title)
-    addChartToDocument(document, page_heading_content, krzywa_wahan_stanow_glownych_1_stopnia_chart_filename)
+def addHeadingToDocumentElement(document, index_of_element, element_name):
+    page_heading_content = '%s. %s' % (str(index_of_element), element_name)
+    page_heading = document.add_heading(page_heading_content, 2)
+    page_heading.add_run().bold = True
+    page_heading.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.LEFT

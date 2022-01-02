@@ -2,8 +2,7 @@ import locale
 
 import util
 from dataset_provider import DataFrameForStanyGlowne, DatasetProvider
-from dataset_repository import IMGWDatasetRepository
-from document_element_assembler import DocumentAssembler
+from document_element_assembler import DocumentAssembler, StanyGlowneAssembler
 
 # print greetings message and load required data from file and user interface
 util.print_greetings()
@@ -14,7 +13,7 @@ river_name, city_name, year_from, year_to, year_of_krzywa_wahan_stanow_i_przeply
 
 # prepare variables and directories
 locale.getpreferredencoding(do_setlocale=True)
-index_of_element = 0
+index_of_element = 1
 years_range = range(year_from, year_to + 1)
 util.createRequiredDirectoriesIfDoesNotExists()
 
@@ -28,9 +27,11 @@ main_states_second_degree = DataFrameForStanyGlowne.provideDataForYearlyFlowsAnd
 
 # create and add elements to document in particular order
 document = DocumentAssembler.createDocumentWithFirstPage(city_name, river_name)
-index_of_element = +1
-DocumentAssembler.addMainStatesFluctuationCurveForYears(document, index_of_element, main_states_first_degree, main_states_second_degree, river_name, city_name,
-                                                        year_from,
-                                                        year_to)
+index_of_element = StanyGlowneAssembler.addStanyGlownePages(document, index_of_element, main_states_first_degree, main_states_second_degree, river_name,
+                                                            city_name,
+                                                            year_from, year_to)
+
+
+
 # save document
 document.save(util.provideOutputFileName())
