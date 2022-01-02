@@ -2,7 +2,7 @@ import locale
 
 import util
 from dataset_provider import DataFrameForStanyGlowne, DatasetProvider
-from document_element_assembler import DocumentAssembler, StanyGlowneAssembler, KrzyweSumCzasowTrwaniaAssembler
+from document_element_assembler import DocumentAssembler, StanyGlowneAssembler, KrzyweSumCzasowTrwaniaAssembler, KrzywaWahanCodziennychIStanowAssembler
 
 # print greetings message and load required data from file and user interface
 util.print_greetings()
@@ -36,6 +36,8 @@ KrzyweSumCzasowTrwaniaAssembler.addHistogramsAndCzestoscWystapieniaAndSumyCzasow
                                                                                                 dataset_for_years,
                                                                                                 include_first_row_for_higher_in_frequency_table,
                                                                                                 common_range_of_states_for_multiannual)
-
+index_of_element += 1
+KrzywaWahanCodziennychIStanowAssembler.addElement(document, index_of_element, dataset_for_years[year_of_krzywa_wahan_stanow_i_przeplywow_codziennych],
+                                                  year_of_krzywa_wahan_stanow_i_przeplywow_codziennych, river_name, city_name)
 # save document
 document.save(util.provideOutputFileName())

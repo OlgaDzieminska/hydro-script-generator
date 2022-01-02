@@ -8,7 +8,8 @@ from Constants import CHARTS_FONT_SIZE
 
 
 def printDailyFlowsAndStatesFluctuationCurveChart(przeplyw, stanWody, river_name, city_name,
-                                                  year_of_chart, dni):
+                                                  year_of_chart):
+    days = len(przeplyw)
     chart_name = "Krzywa wahań stanów i przepływów codziennych w roku %d" % year_of_chart
     chart_title = "Krzywa wahań stanów i przepływów codziennych w roku %s\n rzeka:%s przekrój:%s" % (
         year_of_chart, river_name, city_name)
@@ -28,9 +29,9 @@ def printDailyFlowsAndStatesFluctuationCurveChart(przeplyw, stanWody, river_name
     axes_for_states.plot(przeplyw, "b-", lw=2, label="Stan wody")
     axes_for_flows.plot(stanWody, "r-", lw=2, label="Przepływ")
 
-    axes_for_states.set_xlim(0, len(dni))
+    axes_for_states.set_xlim(0, days)
     axes_for_states.set_ylim(0.2, max(przeplyw) + 50)
-    axes_for_states.set_xticks(np.arange(0, len(dni), 10))
+    axes_for_states.set_xticks(np.arange(0, days, 10))
 
     axes_for_states.legend(loc=(0.9, 0.9))  # legenda do wykresu
     axes_for_flows.legend(loc=(0.9, 0.86))
