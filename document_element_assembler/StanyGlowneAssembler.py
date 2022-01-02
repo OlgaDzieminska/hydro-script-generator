@@ -38,5 +38,5 @@ def addMainStatesFluctuationCurveForYears(document, index_of_element, main_state
             main_states_second_degree,
             river_name, city_name,
             year_from, year_to)
-    DocumentAssembler.addChartToDocument(document, index_of_element, krzywa_wahan_stanow_glownych_1_stopnia_chart_title,
-                                         krzywa_wahan_stanow_glownych_1_stopnia_chart_filename)
+    DocumentAssembler.addHeadingToDocumentElement(document, index_of_element, krzywa_wahan_stanow_glownych_1_stopnia_chart_title)
+    DocumentAssembler.addChartToDocument(document, krzywa_wahan_stanow_glownych_1_stopnia_chart_filename)

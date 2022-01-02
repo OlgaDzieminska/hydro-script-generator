@@ -37,10 +37,9 @@ def __appendFirstPageToDocument(document, city_name, river_name):
     r1.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
 
 
-def addChartToDocument(document, index_of_element, chart_title, chart_filename):
-    addHeadingToDocumentElement(document, index_of_element, chart_title)
+def addChartToDocument(document, chart_filename):
     path_to_chart_file = os.path.join(TEMP_FOLDER_DIRECTORY, CHART_IMAGES_DIRECTORY, chart_filename)
-    document.add_picture(path_to_chart_file, width=Cm(19))
+    document.add_picture(path_to_chart_file, width=Cm(14), height=Cm(14))
 
 
 def addHeadingToDocumentElement(document, index_of_element, element_name):

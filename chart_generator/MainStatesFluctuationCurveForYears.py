@@ -13,7 +13,7 @@ def printMainStatesFluctuationCurveForYears(main_states, main_states_2_degree, r
     main_states_without_sum.drop(main_states.tail(1).index, inplace=True)
     tabzm = (range(year_from_from_UI, year_to_from_UI, 1))
     chartName = 'Krzywa wahań stanów głównych'
-    title = "%s dla okresu %s-%s\n rzeka:%s przekrój:%s" % (
+    title = "%s dla okresu %s-%s\n rzeka:%s, przekrój:%s" % (
         chartName, year_from_from_UI, year_to_from_UI, river_name, section_name)
 
     figure, axes = plt.subplots()
