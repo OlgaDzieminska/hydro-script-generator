@@ -2,7 +2,7 @@ import locale
 
 import util
 from dataset_provider import DataFrameForStanyGlowne, DatasetProvider
-from document_element_assembler import DocumentAssembler, StanyGlowneAssembler
+from document_element_assembler import DocumentAssembler, StanyGlowneAssembler, KrzyweSumCzasowTrwaniaAssembler
 
 # print greetings message and load required data from file and user interface
 util.print_greetings()
@@ -27,11 +27,15 @@ main_states_second_degree = DataFrameForStanyGlowne.provideDataForYearlyFlowsAnd
 
 # create and add elements to document in particular order
 document = DocumentAssembler.createDocumentWithFirstPage(city_name, river_name)
-index_of_element = StanyGlowneAssembler.addStanyGlownePages(document, index_of_element, main_states_first_degree, main_states_second_degree, river_name,
-                                                            city_name,
-                                                            year_from, year_to)
-
-
+StanyGlowneAssembler.addStanyGlownePages(document, index_of_element, main_states_first_degree, main_states_second_degree, river_name,
+                                         city_name,
+                                         year_from, year_to)
+index_of_element += 1
+KrzyweSumCzasowTrwaniaAssembler.addHistogramsAndCzestoscWystapieniaAndSumyCzasowTrwaniaElements(document, index_of_element, main_states_first_degree,
+                                                                                                river_name, city_name, first_year_of_multiannual_period,
+                                                                                                dataset_for_years,
+                                                                                                include_first_row_for_higher_in_frequency_table,
+                                                                                                common_range_of_states_for_multiannual)
 
 # save document
 document.save(util.provideOutputFileName())
