@@ -82,3 +82,10 @@ def fetch_request_data_from_UI():
         'Podaj początkowy rok czterolecia, dla którego mają byś wykonane histogramy częstości wystąpienia stanów/przepływów i krzywe sum czasów '
         'trwania stanów/przepływów wraz z wyższymi:'))
     return river_name_from_UI, city_name_from_UI, year_from_from_UI, year_to_from_UI, year_of_krzywa_wahan_stanow_i_przeplywow_codziennych, first_year_of_multiannual_period
+
+
+def convertHydroMonthToNormal(hydro_month):
+    if hydro_month > 2:
+        return hydro_month - 2
+    else:
+        return hydro_month + 10
