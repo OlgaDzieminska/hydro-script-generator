@@ -4,6 +4,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 import Constants
+from table_generator import TableGenerator
 
 
 def printKrzywaSumowaWUkladzieProstokatnym(datasetForKrzywaSumowaWUkladzieProstokatnym, years):
@@ -25,7 +26,7 @@ def printKrzywaSumowaWUkladzieProstokatnym(datasetForKrzywaSumowaWUkladzieProsto
     plt.ylim(0, max(flow_line) + 1000)
 
     ax.legend()
-    ax.set_ylabel('$\suma V [mln m^3]$', fontsize=13)
+    ax.set_ylabel('$\sum_ V [mln m^3]$', fontsize=13)
 
     chart_name = 'Krzywa sumowa w uładzie prostokątnym'
     ax.set_title(chart_name, fontsize=17)
