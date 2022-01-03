@@ -42,5 +42,10 @@ KrzywaWahanCodziennychIStanowAssembler.addElement(document, index_of_element, da
                                                   year_of_krzywa_wahan_stanow_i_przeplywow_codziennych, river_name, city_name)
 index_of_element += 1
 KrzywaSumowaAssembler.addElement(document, index_of_element, dataset_for_years, years_range)
+
+index_of_element += 1
+ZestawienieSrednichMiesiecznychNatezenAndObjetosciOrazSumObjetosciTablesAssembler.addElement(document, index_of_element, dataset_for_years, years_range,
+                                                                                             river_name, city_name)
+
 # save document
 document.save(util.provideOutputFileName())
