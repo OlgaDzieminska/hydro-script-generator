@@ -42,7 +42,7 @@ def generateChart(df_for_krzywa_konsumpcyjna_table):
     plt.ylabel('$H[m]$', fontsize=Constants.CHARTS_FONT_SIZE)
     plt.title(chart_name, fontsize=Constants.CHARTS_FONT_SIZE + 3)
     plt.legend()
-    plt.xticks(np.arange(0, max(Q_approx_values) + 50, 20))
+    plt.xticks(np.arange(0, max(Q_approx_values) + 50, 50))
     plt.grid()
 
     file_name = chart_name + '.png'
