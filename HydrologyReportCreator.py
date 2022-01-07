@@ -2,8 +2,9 @@ import locale
 
 import util
 from dataset_provider import DataFrameForStanyGlowne, DatasetProvider
-from document_element_assembler import DocumentAssembler, StanyGlowneAssembler, KrzyweSumCzasowTrwaniaAssembler, KrzywaWahanCodziennychIStanowAssembler, \
-    KrzywaSumowaAssembler
+from dataset_repository import IMGWDatasetRepository
+from document_element_assembler import DocumentAssembler, KrzywaSumowaAndSrednieMiesieczneNatezeniaAssembler, KrzywaKonsumpcyjnaAssembler, StanyGlowneAssembler, \
+    KrzyweSumCzasowTrwaniaAssembler, KrzywaWahanCodziennychIStanowAssembler, PrawdopodobienstwoWystapieniaPrzeplywowMaksymalnychAssembler
 
 # print greetings message and load required data from file and user interface
 util.print_greetings()
@@ -41,11 +42,14 @@ index_of_element += 1
 KrzywaWahanCodziennychIStanowAssembler.addElement(document, index_of_element, dataset_for_years[year_of_krzywa_wahan_stanow_i_przeplywow_codziennych],
                                                   year_of_krzywa_wahan_stanow_i_przeplywow_codziennych, river_name, city_name)
 index_of_element += 1
-KrzywaSumowaAssembler.addElement(document, index_of_element, dataset_for_years, years_range)
+KrzywaSumowaAndSrednieMiesieczneNatezeniaAssembler.addElements(document, index_of_element, dataset_for_years, years_range, river_name, city_name)
 
 index_of_element += 1
-ZestawienieSrednichMiesiecznychNatezenAndObjetosciOrazSumObjetosciTablesAssembler.addElement(document, index_of_element, dataset_for_years, years_range,
-                                                                                             river_name, city_name)
+KrzywaKonsumpcyjnaAssembler.addElements(document, index_of_element, dataset_for_years, years_range)
 
+PrawdopodobienstwoWystapieniaPrzeplywowMaksymalnychAssembler.addElements(document, index_of_element, dataset_for_years, year_from, year_to, years_range,
+                                                                         river_name, city_name)
+
+print('Zakończono tworzenie operatu.')
 # save document
 document.save(util.provideOutputFileName())
