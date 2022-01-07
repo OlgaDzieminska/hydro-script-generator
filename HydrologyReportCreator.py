@@ -69,3 +69,4 @@ PrawdopodobienstwoWystapieniaPrzeplywowMaksymalnychAssembler.addElements(documen
 print('Zakończono tworzenie operatu.')
 # save document
 document.save(util.provideOutputFileName())
+input('Wciśnij Enter aby zamknąć okno...')
