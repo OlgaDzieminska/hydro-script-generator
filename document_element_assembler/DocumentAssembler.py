@@ -39,7 +39,7 @@ def __appendFirstPageToDocument(document, city_name, river_name):
 
 def addChartToDocument(document, chart_filename):
     path_to_chart_file = os.path.join(TEMP_FOLDER_DIRECTORY, CHART_IMAGES_DIRECTORY, chart_filename)
-    document.add_picture(path_to_chart_file, width=Cm(14), height=Cm(14))
+    document.add_picture(path_to_chart_file, width=Cm(18), height=Cm(18))
 
 
 def addHeadingToDocumentElement(document, index_of_element, element_name):

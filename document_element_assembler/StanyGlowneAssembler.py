@@ -7,12 +7,12 @@ from table_generator import StanyGlowne1StopniaTableGenerator, StanyGlowne2Stopn
 def addStanyGlownePages(document, index_of_element, main_states_first_degree, main_states_second_degree, river_name, city_name, year_from, year_to):
     inner_index_of_element = 1
     years_range = range(year_from, year_to + 1)
-    StanyGlowneTable = DataFrameForStanyGlowne.provideDataForYearlyFlowsAndStatesInYearsForFirstDegree(years_range, city_name, river_name, 'h_water')
 
     document.add_page_break()
     textual_element_index = '%d.%d' % (index_of_element, inner_index_of_element)
     stany_glowne_table_title = 'Stany główne I stopnia w wieloleciu %d-%d, rzeka: %s, przekrój: %s' % (year_from, year_to, river_name, city_name)
     DocumentAssembler.addHeadingToDocumentElement(document, textual_element_index, stany_glowne_table_title)
+    StanyGlowneTable = DataFrameForStanyGlowne.provideDataForYearlyFlowsAndStatesInYearsForFirstDegree(years_range, city_name, river_name, 'h_water')
     StanyGlowne1StopniaTableGenerator.appendStanyGlowneTableToDocument(document, StanyGlowneTable)
 
     inner_index_of_element += 1
