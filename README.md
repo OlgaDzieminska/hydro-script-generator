@@ -14,7 +14,8 @@ Project is divided into modules:
 4. Document elements assembler: contains a set of functions for assembling
    hydrological report. These functions adds title page with information
     about the city and river, charts, and headings for document elements.
-5. Table generator: creates tables in docx file.
+5. Table generator: creates tables in docx file. 
+![Przechwytywanie](https://github.com/OlgaDzieminska/hydro-script-generator/assets/93330676/9cc07df3-d924-453a-ba13-cdd9f0cedcc2) 
 
 Example of generated table and chart:
 ![image](https://github.com/OlgaDzieminska/hydro-script-generator/assets/93330676/a5764d14-89b5-48c9-846e-d1381b99e198)
